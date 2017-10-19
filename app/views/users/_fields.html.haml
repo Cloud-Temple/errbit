@@ -25,13 +25,13 @@
   = f.label :time_zone, t('.time_zone')
   = f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones
 
-.required
-  = f.label :password, t('.password')
-  = f.password_field :password, :autocomplete => "off"
-
-.required
-  = f.label :password_confirmation, t('.password_confirmation')
-  = f.password_field :password_confirmation
+-#.required
+-#  = f.label :password, t('.password')
+-#  = f.password_field :password, :autocomplete => "off"
+-#
+-#.required
+-#  = f.label :password_confirmation, t('.password_confirmation')
+-#  = f.password_field :password_confirmation
 
 - if current_user.admin?
   .checkbox
