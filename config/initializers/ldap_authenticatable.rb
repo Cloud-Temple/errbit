@@ -11,7 +11,6 @@ module Devise
           @ldap.host = ENV['LDAP_HOST']
           @ldap.port = ENV['LDAP_PORT']
 
-
           login = email[0, email.index('@')]
 
           ENV['LDAP_ALLOWED_DOMAIN'].split(';').each do |domain|
