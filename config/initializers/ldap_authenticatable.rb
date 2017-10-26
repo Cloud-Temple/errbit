@@ -22,8 +22,12 @@ module Devise
                 if is_in_group? login, group
                   if User.where(username: login).first.nil?
                     user = User.find_or_create_by(username: login)
-                    user.name = namify(login)
-                    user.email = login + '@' + ENV['EMAIL_DOMAIN']
+                    filter_by_uid = '('+ENV['LDAP_ATTRUBUTE']+'='+login+')'
+                    attributes = [ENV['LDAP_USER_EMAIL_ATTRIBUTE'].to_s.to_sym, ENV['LDAP_USER_FULLNAME_ATTRIBUTE'].to_s.to_sym]
+                    @ldap.search( base: ENV['LDAP_ROOT'], filter: filter_by_uid , attributes: attributes) do |entry|
+                        user.email = entry[:mail]
+                        user.name = entry[:displayName]
+                    end
                   else
                     user = User.find_or_create_by(username: login)
                   end
@@ -45,10 +49,6 @@ module Devise
           return true if entry[:memberuid].include? uid
         end
         return false
-      end
-
-      def namify(login)
-        login.gsub(/\./, ' ').split(' ').each{ |e| e.capitalize! }.join(' ')
       end
 
       def username
