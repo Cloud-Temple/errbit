@@ -9,7 +9,7 @@ HoptoadNotifier.module_eval do
       return unless configuration.public?
 
       app = App.find_or_initialize_by(name: "Self.Errbit")
-      app.github_repo = "errbit/errbit"
+      app.github_repo = "Cloud-Temple/errbit"
       app.save!
       notice.send("api_key=", app.api_key)
 

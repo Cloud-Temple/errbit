@@ -7,6 +7,6 @@ function refreshing(){
         if(refresh) $('.auto-refresh-button').removeClass("fa-circle-o").addClass("fa-dot-circle-o");
         else $('.auto-refresh-button').removeClass("fa-dot-circle-o").addClass("fa-circle-o");
     });
-    setInterval(function(){ if(refresh) location.reload() }, 3000);
+    setInterval(function(){ if(refresh) location.reload() }, 10000);
     
 }

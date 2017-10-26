@@ -25,8 +25,8 @@ module Devise
                     filter_by_uid = '('+ENV['LDAP_ATTRUBUTE']+'='+login+')'
                     attributes = [ENV['LDAP_USER_EMAIL_ATTRIBUTE'].to_s.to_sym, ENV['LDAP_USER_FULLNAME_ATTRIBUTE'].to_s.to_sym]
                     @ldap.search( base: ENV['LDAP_ROOT'], filter: filter_by_uid , attributes: attributes) do |entry|
-                        user.email = entry[:mail]
-                        user.name = entry[:displayName]
+                        user.email = entry[:mail].first
+                        user.name = entry[:displayName].first
                     end
                   else
                     user = User.find_or_create_by(username: login)

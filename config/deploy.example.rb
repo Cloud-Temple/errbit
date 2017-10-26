@@ -10,7 +10,7 @@
 lock '3.4.1'
 
 set :application, 'errbit'
-set :repo_url, 'https://github.com/errbit/errbit.git'
+set :repo_url, 'https://github.com/Cloud-Temple/errbit.git'
 set :branch, ENV['branch'] || 'master'
 set :deploy_to, '/var/www/apps/errbit'
 set :keep_releases, 5
