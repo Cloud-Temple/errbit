@@ -12,7 +12,7 @@ class User
   field :name
   field :admin, type: Boolean, default: false
   field :per_page, type: Integer, default: PER_PAGE
-  field :time_zone, default: "UTC"
+  field :time_zone, default: "Paris"
 
   ## Devise field
   ### Database Authenticatable

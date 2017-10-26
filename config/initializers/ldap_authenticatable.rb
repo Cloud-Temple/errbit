@@ -20,8 +20,14 @@ module Devise
             if @ldap.bind
               ENV['LDAP_ALLOWED_GROUP'].split(';').each do |group|
                 if is_in_group? login, group
-                  user = User.find_or_create_by(username: login)
-                  user.name = namify(login)
+                  if User.where(username: login).first.nil?
+                    user = User.find_or_create_by(username: login)
+                    user.name = namify(login)
+                    user.email = login + '@' + ENV['EMAIL_DOMAIN']
+                  else
+                    user = User.find_or_create_by(username: login)
+                  end
+
                   return success!(user)
                 end
               end
