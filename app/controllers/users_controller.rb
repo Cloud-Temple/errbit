@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_admin!, except: [:edit, :update]
+  before_action :require_admin!
+  skip_before_action :require_admin!, [:edit, :update]
   before_action :require_user_edit_priviledges, only: [:edit, :update]
 
   expose(:user)

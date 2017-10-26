@@ -11,7 +11,7 @@ module Devise
           @ldap.host = ENV['LDAP_HOST']
           @ldap.port = ENV['LDAP_PORT']
 
-          login = email[0, email.index('@')]
+          login = username
 
           ENV['LDAP_ALLOWED_DOMAIN'].split(';').each do |domain|
             ldap_requested_user = ENV['LDAP_ATTRUBUTE'] + '=' + login + ',' + domain
@@ -20,7 +20,7 @@ module Devise
             if @ldap.bind
               ENV['LDAP_ALLOWED_GROUP'].split(';').each do |group|
                 if is_in_group? login, group
-                  user = User.find_or_create_by(email: email)
+                  user = User.find_or_create_by(username: login)
                   user.name = namify(login)
                   return success!(user)
                 end
@@ -45,8 +45,8 @@ module Devise
         login.gsub(/\./, ' ').split(' ').each{ |e| e.capitalize! }.join(' ')
       end
 
-      def email
-        params[:user][:email]
+      def username
+        params[:user][:username]
       end
 
       def password
